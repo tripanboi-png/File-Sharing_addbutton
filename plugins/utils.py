@@ -10,7 +10,7 @@ from config import (
     API_HASH,
     APP_ID,
     CHANNEL_ID,
-    DB_URI,
+    MONGO_URI,
     FORCE_MSG,
     FORCE_SUB_CHANNEL,
     FORCE_SUB_GROUP,
@@ -50,7 +50,7 @@ async def varsFunc(client: Bot, message: Message):
 APP_ID = <code>{APP_ID}</code>
 API_HASH = <code>{API_HASH}</code>
 TG_BOT_TOKEN = <code>{TG_BOT_TOKEN}</code>
-DATABASE_URL = <code>{DB_URI}</code>
+MONGO_URI = <code>{MONGO_URI}</code>
 OWNER = <code>{OWNER}</code>
 ADMINS = <code>{ADMINS}</code>
     
