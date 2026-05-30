@@ -251,7 +251,7 @@ async def send_text(client: Bot, message: Message):
 
             chat_id = row["_id"]
 
-            if chat_id not in ADMINS:
+            if not await is_admin(chat_id):
 
                 try:
                     await broadcast_msg.copy(
