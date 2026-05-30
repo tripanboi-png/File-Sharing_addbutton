@@ -43,28 +43,26 @@ async def fsub_button(client, message):
 
     buttons = []
 
-    data = await get_buttons()
+join_buttons = []
 
-    for btn in data:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text=btn["name"],
-                    url=btn["url"]
-                )
-            ]
+for btn in data:
+    join_buttons.append(
+        InlineKeyboardButton(
+            text=btn["name"],
+            url=btn["url"]
         )
+    )
 
-    try:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                    url=f"https://t.me/{client.username}?start={message.command[1]}"
-                )
-            ]
+if join_buttons:
+    buttons.append(join_buttons)
+
+buttons.append(
+    [
+        InlineKeyboardButton(
+            text="COBA LAGI",
+            url=f"https://t.me/{client.username}?start={message.command[1]}"
         )
-    except IndexError:
-        pass
+    ]
+)
 
-    return buttons
+return buttons
