@@ -52,6 +52,7 @@ async def is_subscribed(filter, client, update):
     if user_id in ADMINS:
         return True
 
+    # FORCE SUB CHANNEL
     if FORCE_SUB_CHANNEL:
         try:
             member = await client.get_chat_member(
@@ -69,10 +70,37 @@ async def is_subscribed(filter, client, update):
         except UserNotParticipant:
             return False
 
+    # FORCE SUB GROUP
     if FORCE_SUB_GROUP:
         try:
             member = await client.get_chat_member(
                 FORCE_SUB_GROUP,
+                user_id
+            )
+
+            if member.status not in [
+                ChatMemberStatus.OWNER,
+                ChatMemberStatus.ADMINISTRATOR,
+                ChatMemberStatus.MEMBER
+            ]:
+                return False
+
+        except UserNotParticipant:
+            return False
+
+    # CHECK CHANNEL DARI DATABASE BUTTON
+    buttons = await get_join_buttons()
+
+    for btn in buttons:
+
+        chat_id = btn.get("chat_id")
+
+        if not chat_id:
+            continue
+
+        try:
+            member = await client.get_chat_member(
+                chat_id,
                 user_id
             )
 
