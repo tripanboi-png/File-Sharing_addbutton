@@ -7,10 +7,11 @@ db = client["FileSharingBot"]
 buttons = db["buttons"]
 
 
-async def add_button(name, url):
+async def add_button(name, url, chat_id):
     buttons.insert_one({
         "name": name,
-        "url": url
+        "url": url,
+        "chat_id": chat_id
     })
 
 
