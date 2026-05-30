@@ -47,18 +47,37 @@ MONGO_URI
 <details>
 <summary><h3><b>🔗 Extra Custom & List Vars</b></h3></summary>
 
-### Variables
+### ### Variables
 
-* `API_HASH` Dapatkan API HASH di web my.telegram.org.
-* `API_ID` Dapatkan APP ID di web my.telegram.org
-* `TG_BOT_TOKEN` Dapatkan dari t.me/BotFather
-* `OWNER` Masukan Username Telegram untuk Owner BOT
-* `CHANNEL_ID` Masukan ID Channel Untuk [Channel Database] contoh:- -100xxxxxxxx
-* `ADMINS` Masukan User ID untuk mendapatkan hak Admin di BOT
-* `START_MESSAGE` Opsional: Pesan /start memulai awalan ke bot, Gunakan <a href='https://github.com/mrismanaziz/File-Sharing-Man/blob/main/README.md#start_message'>format</a> parsemode HTML 
-* `FORCE_SUB_MESSAGE` Opsional: Pesan Paksa Subscribe bot, Gunakan Format parsemode HTML
-* `FORCE_SUB_CHANNEL` Masukan ID dari Channel Untuk Wajib Subscribenya
-* `FORCE_SUB_GROUP` Masukan ID dari Group Untuk Wajib Subscribenya
+* `TG_BOT_TOKEN` Dapatkan Token Bot dari @BotFather
+
+* `APP_ID` Dapatkan API ID dari my.telegram.org
+
+* `API_HASH` Dapatkan API HASH dari my.telegram.org
+
+* `OWNER` Username Telegram Owner Bot (tanpa @)
+
+* `OWNER_ID` User ID Telegram Owner (Super Admin)
+
+* `CHANNEL_ID` ID Channel Database tempat menyimpan file. Contoh: `-100xxxxxxxxxx`
+
+* `MONGO_URI` URI Database MongoDB untuk menyimpan data bot dan admin.
+
+* `ADMINS` User ID Admin Bot. Gunakan spasi untuk memisahkan beberapa ID.
+
+* `PROTECT_CONTENT`
+
+  * `True` = File tidak bisa di-forward dan disimpan.
+  * `False` = File bisa di-forward dan disimpan.
+
+* `START_MESSAGE` (Opsional)
+  Pesan yang ditampilkan saat pengguna menjalankan perintah `/start`.
+  Mendukung format HTML.
+
+* `FORCE_SUB_MESSAGE` (Opsional)
+  Pesan yang ditampilkan saat pengguna belum memenuhi syarat akses.
+  Mendukung format HTML.
+
 
 ### Extra Variables
 
