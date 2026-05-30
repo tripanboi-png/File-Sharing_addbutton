@@ -203,8 +203,11 @@ async def not_joined(client: Bot, message: Message):
     )
 
 
-@Bot.on_message(filters.command(["users", "stats"]) & filters.user(ADMINS))
+@Bot.on_message(filters.command(["users", "stats"]))
 async def get_users(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
 
     msg = await client.send_message(
         chat_id=message.chat.id,
@@ -216,8 +219,11 @@ async def get_users(client: Bot, message: Message):
     await msg.edit(f"{len(users)} <b>Pengguna menggunakan bot ini</b>")
 
 
-@Bot.on_message(filters.command("broadcast") & filters.user(ADMINS))
+@Bot.on_message(filters.command("broadcast"))
 async def send_text(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
 
     if message.reply_to_message:
 
@@ -237,7 +243,7 @@ async def send_text(client: Bot, message: Message):
 
         for row in query:
 
-            chat_id = int(row[0])
+            chat_id = row["_id"]
 
             if chat_id not in ADMINS:
 
