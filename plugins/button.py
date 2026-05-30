@@ -1,3 +1,8 @@
+# Credits: @mrismanaziz
+# FROM File-Sharing-Man <https://github.com/mrismanaziz/File-Sharing-Man/>
+# t.me/SharingUserbot & t.me/Lunatic0de
+
+from config import FORCE_SUB_CHANNEL, FORCE_SUB_GROUP
 from pyrogram.types import InlineKeyboardButton
 from database.buttons import get_buttons
 
@@ -14,6 +19,26 @@ async def start_button(client):
                 InlineKeyboardButton(
                     text=btn["name"],
                     url=btn["url"]
+                )
+            ]
+        )
+
+    if FORCE_SUB_CHANNEL:
+        buttons.append(
+            [
+                InlineKeyboardButton(
+                    text="ᴄʜᴀɴɴᴇʟ",
+                    url=client.invitelink
+                )
+            ]
+        )
+
+    if FORCE_SUB_GROUP:
+        buttons.append(
+            [
+                InlineKeyboardButton(
+                    text="ɢʀᴏᴜᴘ",
+                    url=client.invitelink2
                 )
             ]
         )
@@ -43,26 +68,31 @@ async def fsub_button(client, message):
 
     buttons = []
 
-join_buttons = []
+    data = await get_buttons()
 
-for btn in data:
-    join_buttons.append(
-        InlineKeyboardButton(
-            text=btn["name"],
-            url=btn["url"]
+    join_buttons = []
+
+    for btn in data:
+        join_buttons.append(
+            InlineKeyboardButton(
+                text=btn["name"],
+                url=btn["url"]
+            )
         )
-    )
 
-if join_buttons:
-    buttons.append(join_buttons)
+    if join_buttons:
+        buttons.append(join_buttons)
 
-buttons.append(
-    [
-        InlineKeyboardButton(
-            text="COBA LAGI",
-            url=f"https://t.me/{client.username}?start={message.command[1]}"
+    try:
+        buttons.append(
+            [
+                InlineKeyboardButton(
+                    text="ᴄᴏʙᴀ ʟᴀɢɪ",
+                    url=f"https://t.me/{client.username}?start={message.command[1]}"
+                )
+            ]
         )
-    ]
-)
+    except IndexError:
+        pass
 
-return buttons
+    return buttons
