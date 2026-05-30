@@ -236,7 +236,7 @@ async def send_text(client: Bot, message: Message):
 
         for row in query:
 
-            chat_id = int(row[0])
+            chat_id = row["_id"]
 
             if chat_id not in ADMINS:
 
