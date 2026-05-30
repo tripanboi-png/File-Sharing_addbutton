@@ -140,7 +140,7 @@ async def start_command(client: Bot, message: Message):
                 await msg.copy(
                     chat_id=message.from_user.id,
                     caption=caption,
-                    protect_content=PROTECT_CONTENT,
+                    protect_content=True,
                     reply_markup=reply_markup,
                 )
 
@@ -153,7 +153,7 @@ async def start_command(client: Bot, message: Message):
                 await msg.copy(
                     chat_id=message.from_user.id,
                     caption=caption,
-                    protect_content=PROTECT_CONTENT,
+                    protect_content=True,
                     reply_markup=reply_markup,
                 )
 
