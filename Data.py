@@ -22,8 +22,18 @@ class Data:
  ├ /batch - Untuk membuat link lebih dari satu file
  ├ /speedtest - Untuk Mengetes kecepatan server bot
  └ /broadcast - Untuk mengirim pesan broadcast ke pengguna bot
+ 
+ 👑 Admin Management
+ ├ /addadmin USER_ID
+ ├ /deladmin USER_ID
+ ├ /admins - Lihat daftar admin
 
-👨‍💻 Develoved by </b><a href='https://t.me/Lunatic0de/101'>@Lunatic0de</a>
+ 🔘 Button Force Join
+ ├ /addbutton "NAMA BUTTON" @username
+ ├ /delbutton NAMA_BUTTON
+ ├ /buttons - Lihat semua button
+ 
+👨‍💻 Develoved by </b><a href='https://t.me/jRyzen/101'>@jRyzen</a>
 """
 
     close = [
@@ -50,8 +60,8 @@ class Data:
 @{} adalah Bot Telegram untuk menyimpan Postingan atau File yang dapat Diakses melalui Link Khusus.
 
  • Creator: @{}
- • Framework: <a href='https://docs.pyrogram.org'>Pyrogram</a>
+ • Framework: <a href='https://'>Pyrogram</a>
  • Source Code: <a href='https://github.com/mrismanaziz/File-Sharing-Man'>File-Sharing-Man v4</a>
 
-👨‍💻 Develoved by </b><a href='https://t.me/Lunatic0de/101'>@Lunatic0de</a>
+👨‍💻 Develoved by </b><a href='https://t.me/jRyzen/101'>@jRyzen</a>
 """
