@@ -11,22 +11,27 @@ async def addbutton_cmd(client, message: Message):
     if not await is_admin(message.from_user.id):
         return
 
-    if len(message.command) < 3:
+    if len(message.command) < 4:
         return await message.reply_text(
-            "Usage:\n/addbutton Nama https://url.com"
+            "Usage:\n/addbutton Nama URL CHAT_ID"
         )
 
-   name = message.command[1]
-   url = message.command[2]
-   chat_id = int(message.command[3])
+    try:
+        name = message.command[1]
+        url = message.command[2]
+        chat_id = int(message.command[3])
 
-    await add_button(name, url, chat_id)
+        await add_button(name, url, chat_id)
 
-    await message.reply_text(
-        f"✅ Button ditambahkan\n\n"
-        f"📌 Nama: {name}\n"
-        f"🔗 URL: {url}"
-    )
+        await message.reply_text(
+            f"✅ Button ditambahkan\n\n"
+            f"📌 Nama: {name}\n"
+            f"🔗 URL: {url}\n"
+            f"🆔 Chat ID: {chat_id}"
+        )
+
+    except Exception as e:
+        await message.reply_text(f"❌ Error:\n<code>{e}</code>")
 
 
 @Bot.on_message(filters.command("delbutton"))
@@ -34,7 +39,7 @@ async def delbutton_cmd(client, message: Message):
     if not await is_admin(message.from_user.id):
         return
 
-    if len(message.command) < 4:
+    if len(message.command) < 2:
         return await message.reply_text(
             "Usage:\n/delbutton Nama"
         )
@@ -65,7 +70,8 @@ async def buttons_cmd(client, message: Message):
     for btn in data:
         text += (
             f"• {btn['name']}\n"
-            f"  {btn['url']}\n\n"
+            f"  {btn['url']}\n"
+            f"  {btn.get('chat_id', 'Tidak ada')}\n\n"
         )
 
     await message.reply_text(text)
