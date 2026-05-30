@@ -162,7 +162,7 @@ async def start_command(client: Bot, message: Message):
 
     else:
 
-        out = start_button(client)
+        out = await start_button(client)
 
         await message.reply_text(
             text=START_MSG.format(
