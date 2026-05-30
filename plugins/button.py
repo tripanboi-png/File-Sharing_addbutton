@@ -13,15 +13,18 @@ async def start_button(client):
 
     data = await get_buttons()
 
+    join_buttons = []
+
     for btn in data:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text=btn["name"],
-                    url=btn["url"]
-                )
-            ]
+        join_buttons.append(
+            InlineKeyboardButton(
+                text=btn["name"],
+                url=btn["url"]
+            )
         )
+
+    if join_buttons:
+        buttons.append(join_buttons)
 
     if FORCE_SUB_CHANNEL:
         buttons.append(
