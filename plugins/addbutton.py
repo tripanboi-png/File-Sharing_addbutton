@@ -16,10 +16,11 @@ async def addbutton_cmd(client, message: Message):
             "Usage:\n/addbutton Nama https://url.com"
         )
 
-    name = message.command[1]
-    url = message.command[2]
+   name = message.command[1]
+   url = message.command[2]
+   chat_id = int(message.command[3])
 
-    await add_button(name, url)
+    await add_button(name, url, chat_id)
 
     await message.reply_text(
         f"✅ Button ditambahkan\n\n"
@@ -33,7 +34,7 @@ async def delbutton_cmd(client, message: Message):
     if not await is_admin(message.from_user.id):
         return
 
-    if len(message.command) < 2:
+    if len(message.command) < 4:
         return await message.reply_text(
             "Usage:\n/delbutton Nama"
         )
