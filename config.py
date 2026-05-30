@@ -35,8 +35,11 @@ HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
 # Custom Repo for updater.
 UPSTREAM_BRANCH = os.environ.get("UPSTREAM_BRANCH", "master")
 
-# Database
+# Database PostgreSQL (sementara)
 DB_URI = os.environ.get("DATABASE_URL", "")
+
+# MongoDB
+MONGO_URI = os.environ.get("MONGO_URI", "")
 
 # ID dari Channel Atau Group Untuk Wajib Subscribenya
 FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "0"))
