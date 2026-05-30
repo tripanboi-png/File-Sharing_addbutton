@@ -12,6 +12,7 @@ from pyrogram.errors import FloodWait
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 
 from config import ADMINS, FORCE_SUB_CHANNEL, FORCE_SUB_GROUP
+from database.buttons import get_join_buttons
 
 
 async def subschannel(filter, client, update):
