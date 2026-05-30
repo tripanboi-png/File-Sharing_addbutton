@@ -76,7 +76,7 @@ async def link_generator(client: Client, message: Message):
             channel_message = await client.ask(
                 text="<b>Silahkan Forward Pesan dari Channel DataBase. (Forward with Qoute)</b>\n\n<b>atau Kirim Link Postingan dari Channel Database</b>",
                 chat_id=message.from_user.id,
-                filters=(filters.forwarded | (filters.text & ~filters.forwarded)),
+                filters=(filters.forwarded | (filters.text & ~filters.forwarded & ~filters.command(["start","help","about"])))
                 timeout=60,
             )
         except BaseException:
