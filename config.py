@@ -36,7 +36,6 @@ HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
 UPSTREAM_BRANCH = os.environ.get("UPSTREAM_BRANCH", "master")
 
 # Database PostgreSQL (sementara)
-DB_URI = os.environ.get("DATABASE_URL", "")
 
 # MongoDB
 MONGO_URI = os.environ.get("MONGO_URI", "")
