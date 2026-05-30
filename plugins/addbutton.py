@@ -1,3 +1,5 @@
+import re
+
 from pyrogram import filters
 from pyrogram.types import Message
 
@@ -8,43 +10,62 @@ from database.buttons import add_button, delete_button, get_buttons
 
 @Bot.on_message(filters.command("addbutton"))
 async def addbutton_cmd(client, message: Message):
+
     if not await is_admin(message.from_user.id):
         return
 
-    if len(message.command) < 4:
+    text = message.text
+
+    match = re.match(
+        r'/addbutton\s+"(.+)"\s+(@[\w\d_]+)',
+        text
+    )
+
+    if not match:
         return await message.reply_text(
-            "Usage:\n/addbutton Nama URL CHAT_ID"
+            'Usage:\n/addbutton "Nama Button" @username'
         )
 
     try:
-        name = message.command[1]
-        url = message.command[2]
-        chat_id = int(message.command[3])
 
-        await add_button(name, url, chat_id)
+        name = match.group(1)
+        username = match.group(2)
+
+        chat = await client.get_chat(username)
+
+        await add_button(
+            name=name,
+            url=f"https://t.me/{username.replace('@', '')}",
+            chat_id=chat.id
+        )
 
         await message.reply_text(
             f"✅ Button ditambahkan\n\n"
             f"📌 Nama: {name}\n"
-            f"🔗 URL: {url}\n"
-            f"🆔 Chat ID: {chat_id}"
+            f"🔗 Username: {username}\n"
+            f"🆔 Chat ID: {chat.id}"
         )
 
     except Exception as e:
-        await message.reply_text(f"❌ Error:\n<code>{e}</code>")
+        await message.reply_text(
+            f"❌ Error\n\n<code>{e}</code>"
+        )
 
 
 @Bot.on_message(filters.command("delbutton"))
 async def delbutton_cmd(client, message: Message):
+
     if not await is_admin(message.from_user.id):
         return
 
-    if len(message.command) < 2:
+    text = message.text.split(maxsplit=1)
+
+    if len(text) < 2:
         return await message.reply_text(
-            "Usage:\n/delbutton Nama"
+            "Usage:\n/delbutton Nama Button"
         )
 
-    name = message.command[1]
+    name = text[1]
 
     await delete_button(name)
 
@@ -55,6 +76,7 @@ async def delbutton_cmd(client, message: Message):
 
 @Bot.on_message(filters.command("buttons"))
 async def buttons_cmd(client, message: Message):
+
     if not await is_admin(message.from_user.id):
         return
 
@@ -68,6 +90,7 @@ async def buttons_cmd(client, message: Message):
     text = "📋 Daftar Button:\n\n"
 
     for btn in data:
+
         text += (
             f"• {btn['name']}\n"
             f"  {btn['url']}\n"
