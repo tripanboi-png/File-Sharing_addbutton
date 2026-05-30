@@ -1,8 +1,3 @@
-# Credits: @mrismanaziz
-# FROM File-Sharing-Man <https://github.com/mrismanaziz/File-Sharing-Man/>
-# t.me/SharingUserbot & t.me/Lunatic0de
-
-from config import FORCE_SUB_CHANNEL, FORCE_SUB_GROUP
 from pyrogram.types import InlineKeyboardButton
 from database.buttons import get_buttons
 
@@ -19,26 +14,6 @@ async def start_button(client):
                 InlineKeyboardButton(
                     text=btn["name"],
                     url=btn["url"]
-                )
-            ]
-        )
-
-    if FORCE_SUB_CHANNEL:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text="ᴄʜᴀɴɴᴇʟ",
-                    url=client.invitelink
-                )
-            ]
-        )
-
-    if FORCE_SUB_GROUP:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text="ɢʀᴏᴜᴘ",
-                    url=client.invitelink2
                 )
             ]
         )
@@ -64,83 +39,32 @@ async def start_button(client):
     return buttons
 
 
-def fsub_button(client, message):
+async def fsub_button(client, message):
 
-    if not FORCE_SUB_CHANNEL and FORCE_SUB_GROUP:
+    buttons = []
 
-        buttons = [
+    data = await get_buttons()
+
+    for btn in data:
+        buttons.append(
             [
                 InlineKeyboardButton(
-                    text="ᴊᴏɪɴ ɢʀᴏᴜᴘ",
-                    url=client.invitelink2
-                ),
-            ],
-        ]
+                    text=btn["name"],
+                    url=btn["url"]
+                )
+            ]
+        )
 
-        try:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                        url=f"https://t.me/{client.username}?start={message.command[1]}",
-                    )
-                ]
-            )
-        except IndexError:
-            pass
-
-        return buttons
-
-    if FORCE_SUB_CHANNEL and not FORCE_SUB_GROUP:
-
-        buttons = [
+    try:
+        buttons.append(
             [
                 InlineKeyboardButton(
-                    text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ",
-                    url=client.invitelink
-                ),
-            ],
-        ]
+                    text="ᴄᴏʙᴀ ʟᴀɢɪ",
+                    url=f"https://t.me/{client.username}?start={message.command[1]}"
+                )
+            ]
+        )
+    except IndexError:
+        pass
 
-        try:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                        url=f"https://t.me/{client.username}?start={message.command[1]}",
-                    )
-                ]
-            )
-        except IndexError:
-            pass
-
-        return buttons
-
-    if FORCE_SUB_CHANNEL and FORCE_SUB_GROUP:
-
-        buttons = [
-            [
-                InlineKeyboardButton(
-                    text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ",
-                    url=client.invitelink
-                ),
-                InlineKeyboardButton(
-                    text="ᴊᴏɪɴ ɢʀᴏᴜᴘ",
-                    url=client.invitelink2
-                ),
-            ],
-        ]
-
-        try:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                        url=f"https://t.me/{client.username}?start={message.command[1]}",
-                    )
-                ]
-            )
-        except IndexError:
-            pass
-
-        return buttons
+    return buttons
