@@ -8,13 +8,14 @@ from time import time
 
 from bot import Bot
 from config import (
-    ADMINS,
     CUSTOM_CAPTION,
     DISABLE_CHANNEL_BUTTON,
     FORCE_MSG,
     PROTECT_CONTENT,
     START_MSG,
 )
+
+from database.admins import is_admin
 
 from database.mongo import add_user, delete_user, full_userbase, query_msg
 
@@ -52,8 +53,11 @@ async def _human_time_duration(seconds):
     return ", ".join(parts)
 
 
-@Bot.on_message(filters.command("start") & filters.private & subsall & subsch & subsgc)
-async def start_command(client: Bot, message: Message):
+@Bot.on_message(filters.command(["users", "stats"]))
+async def get_users(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
 
     id = message.from_user.id
 
@@ -181,8 +185,11 @@ async def start_command(client: Bot, message: Message):
     return
 
 
-@Bot.on_message(filters.command("start") & filters.private)
-async def not_joined(client: Bot, message: Message):
+@Bot.on_message(filters.command("broadcast"))
+async def send_text(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
 
     buttons = fsub_button(client, message)
 
@@ -202,8 +209,11 @@ async def not_joined(client: Bot, message: Message):
     )
 
 
-@Bot.on_message(filters.command(["users", "stats"]) & filters.user(ADMINS))
-async def get_users(client: Bot, message: Message):
+@Bot.on_message(filters.command("broadcast"))
+async def send_text(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
 
     msg = await client.send_message(
         chat_id=message.chat.id,
@@ -215,8 +225,11 @@ async def get_users(client: Bot, message: Message):
     await msg.edit(f"{len(users)} <b>Pengguna menggunakan bot ini</b>")
 
 
-@Bot.on_message(filters.command("broadcast") & filters.user(ADMINS))
+@Bot.on_message(filters.command("broadcast"))
 async def send_text(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
 
     if message.reply_to_message:
 
