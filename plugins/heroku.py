@@ -57,7 +57,11 @@ async def is_heroku():
 async def varget_(client, message):
 
     if not await is_admin(message.from_user.id):
-        return message.reply_text("<b>Usage:</b>\n/getvar [Var Name]")
+        return
+
+    if len(message.command) != 2:
+        return await message.reply_text("<b>Usage:</b>\n/getvar [Var Name]")
+
     check_var = message.text.split(None, 2)[1]
     if await is_heroku():
         if HAPP is None:
@@ -84,63 +88,106 @@ async def varget_(client, message):
             )
 
 
-@Bot.on_message(filters.command("delvar") & filters.user(ADMINS))
+@Bot.on_message(filters.command("delvar"))
 async def vardel_(client: Bot, message: Message):
+
+    if not await is_admin(message.from_user.id):
+        return
+
     if len(message.command) != 2:
-        return await message.reply_text("<b>Usage:</b>\n/delvar [Var Name]")
+        return await message.reply_text(
+            "<b>Usage:</b>\n/delvar [Var Name]"
+        )
+
     check_var = message.text.split(None, 2)[1]
+
     if await is_heroku():
         if HAPP is None:
             return await message.reply_text(
                 "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku"
             )
+
         heroku_config = HAPP.config()
+
         if check_var in heroku_config:
-            await message.reply_text(f"Berhasil Menghapus var {check_var}")
+            await message.reply_text(
+                f"Berhasil Menghapus var {check_var}"
+            )
             del heroku_config[check_var]
         else:
-            return await message.reply_text(f"Tidak dapat menemukan var {check_var}")
+            return await message.reply_text(
+                f"Tidak dapat menemukan var {check_var}"
+            )
+
     else:
         path = dotenv.find_dotenv("config.env")
+
         if not path:
             return await message.reply_text(".env file not found.")
+
         output = dotenv.unset_key(path, check_var)
+
         if not output[0]:
-            return await message.reply_text(f"Tidak dapat menemukan var {check_var}")
+            return await message.reply_text(
+                f"Tidak dapat menemukan var {check_var}"
+            )
         else:
-            await message.reply_text(f"Berhasil Menghapus var {check_var}")
+            await message.reply_text(
+                f"Berhasil Menghapus var {check_var}"
+            )
             os.system(f"kill -9 {os.getpid()} && bash start")
 
 
-@Bot.on_message(filters.command("getvar"))
-async def varget_(client: Bot, message: Message):
+@Bot.on_message(filters.command("setvar"))
+async def varset_(client: Bot, message: Message):
 
     if not await is_admin(message.from_user.id):
-        return message.reply_text("<b>Usage:</b>\n/setvar [Var Name] [Var Value]")
+        return
+
+    if len(message.command) < 3:
+        return await message.reply_text(
+            "<b>Usage:</b>\n/setvar [Var Name] [Var Value]"
+        )
+
     to_set = message.text.split(None, 2)[1].strip()
     value = message.text.split(None, 2)[2].strip()
+
     if await is_heroku():
+
         if HAPP is None:
             return await message.reply_text(
                 "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku"
             )
+
         heroku_config = HAPP.config()
+
         if to_set in heroku_config:
-            await message.reply_text(f"Berhasil Mengubah var {to_set} menjadi {value}")
+            await message.reply_text(
+                f"Berhasil Mengubah var {to_set} menjadi {value}"
+            )
         else:
             await message.reply_text(
                 f"Berhasil Menambahkan var {to_set} menjadi {value}"
             )
+
         heroku_config[to_set] = value
+
     else:
+
         path = dotenv.find_dotenv("config.env")
+
         if not path:
             return await message.reply_text(".env file not found.")
+
         dotenv.set_key(path, to_set, value)
+
         if dotenv.get_key(path, to_set):
-            await message.reply_text(f"Berhasil Mengubah var {to_set} menjadi {value}")
+            await message.reply_text(
+                f"Berhasil Mengubah var {to_set} menjadi {value}"
+            )
         else:
             await message.reply_text(
                 f"Berhasil Menambahkan var {to_set} menjadi {value}"
             )
+
         os.system(f"kill -9 {os.getpid()} && bash start")
