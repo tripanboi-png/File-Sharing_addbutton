@@ -8,13 +8,14 @@ from time import time
 
 from bot import Bot
 from config import (
-    ADMINS,
     CUSTOM_CAPTION,
     DISABLE_CHANNEL_BUTTON,
     FORCE_MSG,
     PROTECT_CONTENT,
     START_MSG,
 )
+
+from database.admins import is_admin
 
 from database.sql import add_user, delete_user, full_userbase, query_msg
 
