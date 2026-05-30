@@ -7,16 +7,17 @@ db = client["FileSharingBot"]
 buttons = db["buttons"]
 
 
-async def add_button(text, url):
-    buttons.update_one(
-        {"_id": text},
-        {"$set": {"url": url}},
-        upsert=True
-    )
+async def add_button(name, url):
+    buttons.insert_one({
+        "name": name,
+        "url": url
+    })
 
 
-async def delete_button(text):
-    buttons.delete_one({"_id": text})
+async def delete_button(name):
+    buttons.delete_one({
+        "name": name
+    })
 
 
 async def get_buttons():
