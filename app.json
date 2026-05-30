@@ -2,69 +2,81 @@
   "name": "File sharing addbutton",
   "description": "BOT Multi Force Subs File Sharing Bot berguna untuk menyimpan file dan dapat diakses melalui link khusus",
   "stack": "heroku-22",
+
   "keywords": [
     "telegram",
     "file",
     "sharing"
   ],
+
   "logo": "https://telegra.ph/file/9dc4e335feaaf6a214818.jpg",
+
   "env": {
+
     "TG_BOT_TOKEN": {
       "description": "Masukan Bot token, Dapatkan dari t.me/BotFather",
       "value": ""
     },
+
     "OWNER": {
       "description": "Masukan Username Telegram untuk Owner BOT [ Jangan Pake @ ]",
       "value": ""
+    },
 
-   "OWNER_ID": { 
-     "description": "Masukan User ID Telegram Owner (Super Admin)",
-     "value": "0"
-    },
-      
-    },
-    "ADMINS": {
-      "description": "Masukan User ID untuk mendapatkan hak Admin di BOT [ Gunakan Spasi Untuk Pemisah User ID ]",
+    "OWNER_ID": {
+      "description": "Masukan User ID Telegram Owner (Super Admin)",
       "value": "0"
     },
+
+    "ADMINS": {
+      "description": "Masukan User ID untuk mendapatkan hak Admin di BOT",
+      "value": "0"
+    },
+
     "APP_ID": {
       "description": "Dapatkan APP ID di web my.telegram.org",
       "value": "6"
     },
+
     "API_HASH": {
       "description": "Dapatkan API HASH di web my.telegram.org",
       "value": "eb06d4abfb49dc3eeb1aeb98ae0f581e"
     },
+
     "CHANNEL_ID": {
-      "description": "Masukan ID Channel Untuk [Channel Database]",
+      "description": "Masukan ID Channel Database",
       "value": "-100"
     },
-    "PROTECT_CONTENT": {
-      "description": "Untuk Mencegah pengguna bot untuk mendownload/memforward/mengscreenshot konten yang dikirim di bot [ Bila ingin diaktifkan ubah ke True ]",
-      "value": "False"
-    
-    },
-    "START_MESSAGE": {
-      "description": "Pesan /start memulai awalan ke bot, Gunakan format parsemode HTML",
-      "value": "<b>Hello {first}\n\nSaya dapat menyimpan file pribadi di Channel Tertentu dan pengguna lain dapat mengaksesnya dari link khusus.</b>"
-    },
-    "FORCE_SUB_MESSAGE": {
-      "description": "Pesan Paksa Subscribe bot, Gunakan Format parsemode HTML",
-      "value": "<b>Hello {first}\n\nAnda harus bergabung di Channel/Grup saya untuk menggunakan saya\n\nSilakan Join Ke Channel Terlebih Dahulu</b>"
 
-      "MONGO_URI": {
-  "description": "MongoDB Connection URI",
-  "value": ""
-},
+    "MONGO_URI": {
+      "description": "MongoDB Connection URI",
+      "value": ""
+    },
+
+    "PROTECT_CONTENT": {
+      "description": "Lindungi file dari download/forward",
+      "value": "True"
+    },
+
+    "START_MESSAGE": {
+      "description": "Pesan /start",
+      "value": "<b>Hello {first}\\n\\nSaya dapat menyimpan file pribadi di Channel Tertentu dan pengguna lain dapat mengaksesnya dari link khusus.</b>"
+    },
+
+    "FORCE_SUB_MESSAGE": {
+      "description": "Pesan Force Subscribe",
+      "value": "<b>Hello {first}\\n\\nAnda harus bergabung di Channel/Grup saya untuk menggunakan saya\\n\\nSilakan Join Ke Channel Terlebih Dahulu</b>"
     }
   },
-  "addons": []
-  
+
+  "addons": [],
+
   "buildpacks": [
     {
       "url": "heroku/python"
     }
   ],
+
   "formation": {
     "worker": {
       "quantity": 1,
