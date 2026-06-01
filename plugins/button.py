@@ -23,8 +23,15 @@ async def start_button(client):
             )
         )
 
-    if join_buttons:
-        buttons.append(join_buttons)
+    # 2 tombol atas, sisanya ke bawah
+    if len(join_buttons) >= 2:
+        buttons.append(join_buttons[:2])
+
+        for btn in join_buttons[2:]:
+            buttons.append([btn])
+
+    elif len(join_buttons) == 1:
+        buttons.append([join_buttons[0]])
 
     if FORCE_SUB_CHANNEL:
         buttons.append(
@@ -83,8 +90,15 @@ async def fsub_button(client, message):
             )
         )
 
-    if join_buttons:
-        buttons.append(join_buttons)
+    # 2 tombol atas, sisanya ke bawah
+    if len(join_buttons) >= 2:
+        buttons.append(join_buttons[:2])
+
+        for btn in join_buttons[2:]:
+            buttons.append([btn])
+
+    elif len(join_buttons) == 1:
+        buttons.append([join_buttons[0]])
 
     try:
         buttons.append(
