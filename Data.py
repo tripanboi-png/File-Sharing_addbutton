@@ -6,6 +6,7 @@ from pyrogram.types import InlineKeyboardButton
 
 class Data:
     HELP = """
+    <blockquote>
 <b> ❏ Perintah untuk Pengguna BOT
  ├ /start - Mulai Bot
  ├ /about - Tentang Bot ini
@@ -32,6 +33,7 @@ class Data:
  ├ /addbutton "NAMA BUTTON" @username
  ├ /delbutton NAMA_BUTTON
  ├ /buttons - Lihat semua button
+ <blockquote>
  
 👨‍💻 Develoved by </b><a href='https://t.me/jRyzen/101'>@jRyzen</a>
 """
